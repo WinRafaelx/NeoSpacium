@@ -1,0 +1,34 @@
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# User-specific
+.vscode/
+*.user
+*.csproj
+*.sln
+
+# Unity-generated
+Library/
+Temp/
+Obj/
+Build/
+Builds/
+Logs/
+MemoryCaptures/
+UserSettings/
+
+# Auto-generated input system
+Assets/Scripts/InputSystem_Actions.inputactions
+Assets/Scripts/GameActionInputs.inputactions
+
+# Package cache
+Packages/packages-lock.json
+
+# IDE specific (optional)
+*.suo
+*.userprefs
+*.pidb
+*.booproj
+
+
