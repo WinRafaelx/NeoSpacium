@@ -4,37 +4,35 @@ using System.Collections.Generic;
 public class ObstacleSpawner : MonoBehaviour
 {
     [Header("Setup")]
-    public GameObject obstaclePrefab;  // your red cube prefab
-    public Transform player;          // drag in your Player here
+    public GameObject slideObstaclePrefab;
+    public GameObject jumpObstaclePrefab;
+    public GameObject doubleJumpObstaclePrefab;
+    public Transform player; // drag in your Player here
 
     [Header("Grid Settings")]
-    public float segmentLength = 10f;  // each “slice” of road
-    public int segmentsAhead = 10;  // how many slices we keep ahead
-    public float despawnOffset = 5f;   // remove obstacles 5 units behind
+    public float segmentLength = 7f;
+    public int segmentsAhead = 10;
+    public float despawnOffset = 5f;
+    public float laneDistance = 2f; // ← you missed this line
 
-    // internal
     private int segmentToSpawn = 0;
     private List<GameObject> activeObstacles = new List<GameObject>();
 
     void Start()
     {
-        // fill the first few slices at startup
         Update();
     }
 
     void Update()
     {
-        // 1) figure out which slice the player is in
         int playerSlice = Mathf.FloorToInt(player.position.z / segmentLength);
 
-        // 2) spawn all slices up to (playerSlice + segmentsAhead)
         while (segmentToSpawn < playerSlice + segmentsAhead)
         {
             SpawnSlice(segmentToSpawn);
             segmentToSpawn++;
         }
 
-        // 3) clean up any obstacle behind the player
         for (int i = activeObstacles.Count - 1; i >= 0; i--)
         {
             var obs = activeObstacles[i];
@@ -48,22 +46,36 @@ public class ObstacleSpawner : MonoBehaviour
 
     void SpawnSlice(int sliceIndex)
     {
-        // spawn 1–3 obstacles in this slice
-        int count = Random.Range(1, 4);
-        for (int i = 0; i < count; i++)
-        {
-            int lane = Random.Range(-1, 2);  // -1, 0, or 1
-            float zPos = sliceIndex * segmentLength
-                       + Random.Range(0f, segmentLength);
+        int lane = Random.Range(-1, 2);
+        float zPos = sliceIndex * segmentLength + Random.Range(2f, segmentLength - 2f);
 
-            Vector3 pos = new Vector3(lane * 2f, 0.5f, zPos);
-            var obs = Instantiate(obstaclePrefab, pos, Quaternion.identity);
-            activeObstacles.Add(obs);
+        float randomType = Random.value;
+        GameObject prefab;
+        float obstacleY;
+
+        if (randomType < 0.2f)
+        {
+            prefab = jumpObstaclePrefab;
+            obstacleY = 0.5f;
         }
+        else if (randomType < 0.6f)
+        {
+            prefab = slideObstaclePrefab;
+            obstacleY = 2.3f;
+        }
+        else
+        {
+            prefab = doubleJumpObstaclePrefab;
+            obstacleY = 2f;
+        }
+
+        Vector3 pos = new Vector3(lane * laneDistance, obstacleY, zPos);
+        var obs = Instantiate(prefab, pos, Quaternion.identity);
+        activeObstacles.Add(obs);
     }
+
     public void StopSpawning()
     {
         enabled = false;
     }
-
 }

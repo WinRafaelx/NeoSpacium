@@ -220,10 +220,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58640907606cd27408e9f004207bf8b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forwardSpeed: 5
-  speedIncreaseRate: 0.5
+  forwardSpeed: 10
+  speedIncreaseRate: 0.2
   laneDistance: 2
-  jumpForce: 10
+  laneSmoothTime: 0.1
+  jumpForce: 8
   fallImpulse: 20
   slideDuration: 0.5
   slideScaleY: 0.5
@@ -304,11 +305,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8abc38c7382b0614bab5a09dfe3cd892, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obstaclePrefab: {fileID: 7800069432952402730, guid: b67de6c297d224547bdb2637cc98bd23, type: 3}
+  slideObstaclePrefab: {fileID: 5845116760279874089, guid: 20f15efc77ad8af4cb2d127057c6e3a5, type: 3}
+  jumpObstaclePrefab: {fileID: 3131728981052996623, guid: 66caae12104f6aa43af37d8a630297e4, type: 3}
+  doubleJumpObstaclePrefab: {fileID: 4363824406760378088, guid: edada286d61eef244bed5e89a94a126a, type: 3}
   player: {fileID: 40850034}
-  segmentLength: 10
+  segmentLength: 30
   segmentsAhead: 10
   despawnOffset: 5
+  laneDistance: 2
 --- !u!4 &163040146
 Transform:
   m_ObjectHideFlags: 0
