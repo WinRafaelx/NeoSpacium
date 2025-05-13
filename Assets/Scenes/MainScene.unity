@@ -309,7 +309,7 @@ MonoBehaviour:
   jumpObstaclePrefab: {fileID: 3131728981052996623, guid: 66caae12104f6aa43af37d8a630297e4, type: 3}
   doubleJumpObstaclePrefab: {fileID: 4363824406760378088, guid: edada286d61eef244bed5e89a94a126a, type: 3}
   player: {fileID: 40850034}
-  segmentLength: 30
+  segmentLength: 17
   segmentsAhead: 10
   despawnOffset: 5
   laneDistance: 2

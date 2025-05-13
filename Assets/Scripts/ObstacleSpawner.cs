@@ -10,7 +10,7 @@ public class ObstacleSpawner : MonoBehaviour
     public Transform player; // drag in your Player here
 
     [Header("Grid Settings")]
-    public float segmentLength = 7f;
+    public float segmentLength = 15f;
     public int segmentsAhead = 10;
     public float despawnOffset = 5f;
     public float laneDistance = 2f; // ← you missed this line
@@ -46,33 +46,45 @@ public class ObstacleSpawner : MonoBehaviour
 
     void SpawnSlice(int sliceIndex)
     {
-        int lane = Random.Range(-1, 2);
-        float zPos = sliceIndex * segmentLength + Random.Range(2f, segmentLength - 2f);
+        int obstaclesInThisSlice = Random.Range(1, 3); // 1 or 2
+        List<int> usedLanes = new List<int>();
 
-        float randomType = Random.value;
-        GameObject prefab;
-        float obstacleY;
+        for (int i = 0; i < obstaclesInThisSlice; i++)
+        {
+            int lane;
+            do lane = Random.Range(-1, 2);
+            while (usedLanes.Contains(lane)); // avoid same lane
+            usedLanes.Add(lane);
 
-        if (randomType < 0.2f)
-        {
-            prefab = jumpObstaclePrefab;
-            obstacleY = 0.5f;
-        }
-        else if (randomType < 0.6f)
-        {
-            prefab = slideObstaclePrefab;
-            obstacleY = 2.3f;
-        }
-        else
-        {
-            prefab = doubleJumpObstaclePrefab;
-            obstacleY = 2f;
-        }
+            float zPos = sliceIndex * segmentLength + Random.Range(2f, segmentLength - 2f);
 
-        Vector3 pos = new Vector3(lane * laneDistance, obstacleY, zPos);
-        var obs = Instantiate(prefab, pos, Quaternion.identity);
-        activeObstacles.Add(obs);
+            // Choose prefab
+            float randomType = Random.value;
+            GameObject prefab;
+            float obstacleY;
+
+            if (randomType < 0.2f)
+            {
+                prefab = jumpObstaclePrefab;
+                obstacleY = 0.5f;
+            }
+            else if (randomType < 0.6f)
+            {
+                prefab = slideObstaclePrefab;
+                obstacleY = 2.8f;
+            }
+            else
+            {
+                prefab = doubleJumpObstaclePrefab;
+                obstacleY = 2f;
+            }
+
+            Vector3 pos = new Vector3(lane * laneDistance, obstacleY, zPos);
+            var obs = Instantiate(prefab, pos, Quaternion.identity);
+            activeObstacles.Add(obs);
+        }
     }
+
 
     public void StopSpawning()
     {
