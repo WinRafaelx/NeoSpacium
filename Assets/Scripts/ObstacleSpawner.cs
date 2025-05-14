@@ -94,13 +94,13 @@ public class ObstacleSpawner : MonoBehaviour
             activeObstacles.Add(obs);
 
             // 🎯 Coin logic — attach coin to obstacle by type (random chance)
-            if (Random.value < 0.6f) // 50% chance to spawn coin with obstacle
+            if (Random.value < 0.5f) // 50% chance to spawn coin with obstacle
             {
                 Vector3 coinPos = obsPos;
 
                 if (prefab == slideObstaclePrefab)
                 {
-                    coinPos.y = 1.5f; // slide height
+                    coinPos.y = 0.5f; // slide height
                 }
                 else if (prefab == doubleJumpObstaclePrefab)
                 {

@@ -27,6 +27,13 @@ public class Coin : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            Rigidbody rb = other.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                float playerSpeed = Mathf.Max(0f, rb.linearVelocity.z); // ensure non-negative
+                ScoreManager.Instance.AddCoinScore(playerSpeed * 10f);
+            }
+
             Destroy(gameObject);
         }
     }
