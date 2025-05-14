@@ -285,7 +285,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 163040146}
-  - component: {fileID: 163040145}
+  - component: {fileID: 163040147}
   m_Layer: 0
   m_Name: ObstacleSpawner
   m_TagString: Untagged
@@ -293,26 +293,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &163040145
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 163040144}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8abc38c7382b0614bab5a09dfe3cd892, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  slideObstaclePrefab: {fileID: 5845116760279874089, guid: 20f15efc77ad8af4cb2d127057c6e3a5, type: 3}
-  jumpObstaclePrefab: {fileID: 3131728981052996623, guid: 66caae12104f6aa43af37d8a630297e4, type: 3}
-  doubleJumpObstaclePrefab: {fileID: 4363824406760378088, guid: edada286d61eef244bed5e89a94a126a, type: 3}
-  player: {fileID: 40850034}
-  segmentLength: 17
-  segmentsAhead: 10
-  despawnOffset: 5
-  laneDistance: 2
 --- !u!4 &163040146
 Transform:
   m_ObjectHideFlags: 0
@@ -328,6 +308,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &163040147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 163040144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8abc38c7382b0614bab5a09dfe3cd892, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slideObstaclePrefab: {fileID: 5845116760279874089, guid: 20f15efc77ad8af4cb2d127057c6e3a5, type: 3}
+  jumpObstaclePrefab: {fileID: 3131728981052996623, guid: 66caae12104f6aa43af37d8a630297e4, type: 3}
+  doubleJumpObstaclePrefab: {fileID: 4363824406760378088, guid: edada286d61eef244bed5e89a94a126a, type: 3}
+  coinPrefab: {fileID: 1534278556540240179, guid: 501eaa5fdff35a241b44c84e9ca6422b, type: 3}
+  player: {fileID: 40850034}
+  segmentLength: 17
+  segmentsAhead: 10
+  despawnOffset: 5
+  laneDistance: 2
+  startSafeZoneLength: 10
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,13 +7,16 @@ public class ObstacleSpawner : MonoBehaviour
     public GameObject slideObstaclePrefab;
     public GameObject jumpObstaclePrefab;
     public GameObject doubleJumpObstaclePrefab;
+    public GameObject coinPrefab;
     public Transform player; // drag in your Player here
 
     [Header("Grid Settings")]
-    public float segmentLength = 15f;
+    public float segmentLength = 17f;
     public int segmentsAhead = 10;
     public float despawnOffset = 5f;
     public float laneDistance = 2f; // ← you missed this line
+
+    public float startSafeZoneLength = 10f;
 
     private int segmentToSpawn = 0;
     private List<GameObject> activeObstacles = new List<GameObject>();
@@ -29,7 +32,14 @@ public class ObstacleSpawner : MonoBehaviour
 
         while (segmentToSpawn < playerSlice + segmentsAhead)
         {
-            SpawnSlice(segmentToSpawn);
+            float sliceZ = segmentToSpawn * segmentLength;
+
+            // 🛑 Skip spawning in the initial safe zone
+            if (sliceZ >= startSafeZoneLength)
+            {
+                SpawnSlice(segmentToSpawn);
+            }
+
             segmentToSpawn++;
         }
 
@@ -71,7 +81,7 @@ public class ObstacleSpawner : MonoBehaviour
             else if (randomType < 0.6f)
             {
                 prefab = slideObstaclePrefab;
-                obstacleY = 2.8f;
+                obstacleY = 3.5f;
             }
             else
             {
@@ -79,9 +89,30 @@ public class ObstacleSpawner : MonoBehaviour
                 obstacleY = 2f;
             }
 
-            Vector3 pos = new Vector3(lane * laneDistance, obstacleY, zPos);
-            var obs = Instantiate(prefab, pos, Quaternion.identity);
+            Vector3 obsPos = new Vector3(lane * laneDistance, obstacleY, zPos);
+            var obs = Instantiate(prefab, obsPos, Quaternion.identity);
             activeObstacles.Add(obs);
+
+            // 🎯 Coin logic — attach coin to obstacle by type (random chance)
+            if (Random.value < 0.6f) // 50% chance to spawn coin with obstacle
+            {
+                Vector3 coinPos = obsPos;
+
+                if (prefab == slideObstaclePrefab)
+                {
+                    coinPos.y = 1.5f; // slide height
+                }
+                else if (prefab == doubleJumpObstaclePrefab)
+                {
+                    coinPos.y += 4f; // place above the obstacle
+                }
+                else
+                {
+                    coinPos.y += 2f;
+                }
+
+                Instantiate(coinPrefab, coinPos, Quaternion.identity);
+            }
         }
     }
 
