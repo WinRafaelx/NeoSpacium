@@ -126,6 +126,7 @@ public class PlayerController : MonoBehaviour
             forwardSpeed  = 0;
             enabled       = false;
             spawner?.StopSpawning();
+            GameManager.Instance.GameOver(); 
         }
     }
 
