@@ -5,8 +5,8 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [Header("Tuning")]
-    public float forwardSpeed       = 5f;
-    public float speedIncreaseRate  = 0.1f;
+    public float forwardSpeed       = 10f;
+    public float speedIncreaseRate  = 0.2f;
     public float laneDistance       = 2f;
     public float laneSmoothTime     = 0.1f;   // <— smoothing time
     public float jumpForce          = 10f;
@@ -126,6 +126,8 @@ public class PlayerController : MonoBehaviour
             forwardSpeed  = 0;
             enabled       = false;
             spawner?.StopSpawning();
+
+            ScoreManager.Instance.TrySetHighScore();
             GameManager.Instance.GameOver(); 
         }
     }

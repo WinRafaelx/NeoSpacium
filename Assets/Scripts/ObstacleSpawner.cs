@@ -13,7 +13,7 @@ public class ObstacleSpawner : MonoBehaviour
 
     [Header("Spawn Distances")]
     public float lookaheadDistance = 50f;    // how far ahead to fill
-    public float minGap = 10f;    // never closer than this
+    public float minGap = 17f;    // never closer than this
     public float baseReactionTime = 1.0f;   // slowest reaction
     public float minReactionTime = 0.5f;   // fastest reaction
     public float maxSpeedForDifficulty = 50f;  // when reaction is min
